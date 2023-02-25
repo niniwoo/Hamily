@@ -72,6 +72,7 @@ app.post("/question",async(req,res)=>{
     const { token } = req.body;
     try {
         const user = jwt.verify(token,JWT_SECRET);
+        //console.log(user);
         const useremail = user.email;
         User.findOne({email:useremail})
         .then((data) =>{

@@ -33,9 +33,8 @@ constructor(props){
     return (  
         <div >
             <p>
-             Hello, !
+             Hello,{this.state.userData.email}!
             </p>
-            {/* {this.state.userData.email} // can't get this data*/} 
        
         </div>
     )
