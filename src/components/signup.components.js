@@ -1,47 +1,50 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class SignUp extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state={
-      email:"",
-      password:"",
-      password2:""
+    this.state = {
+      email: "",
+      password: "",
+      password2: ""
 
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
-    const {email,password,password2} = this.state;
-    if(password !== password2){
+    const { email, password, password2 } = this.state;
+    if (password !== password2) {
       alert('Please check the password');
-    }else{
-       console.log(email,password,password2);
-    fetch("http://localhost:3000/register",{
-      method:"POST",
-      crossDomain:true,
-      headers:{
-        mode:'no-cors',
-        "Content-Type":"application/json",
-        Accept:"application/json",
-        "Access-Control-Allow-Origin":"*",
-      },
-      body:JSON.stringify({
-        email,
-        password,
-        password2
-      }),
-    }).then((res) => res.json())
-      .then((data) => {
-        console.log(data,"userRegister")
-      })
+    } else {
+      console.log(email, password, password2);
+      fetch("http://localhost:3000/register", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          mode: 'no-cors',
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          password2
+        }),
+      }).then((res) => res.json())
+        .then((data) => {
+          console.log(data, "userRegister")
+        })
     }
-   
+
   }
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <Link to={'/sign-in'}>Login </Link>
+        <Link to={'/sign-up'}> Sign up </Link>
         <h3>Sign Up</h3>
         <div >
           <label>Email address</label>
@@ -49,7 +52,7 @@ export default class SignUp extends Component {
             type="email"
             className="form-control"
             placeholder="Enter email"
-            onChange={(e)=> this.setState({email:e.target.value})}
+            onChange={(e) => this.setState({ email: e.target.value })}
           />
         </div>
 
@@ -59,7 +62,7 @@ export default class SignUp extends Component {
             type="password"
             className="form-control"
             placeholder="Enter password"
-            onChange={(e)=> this.setState({password:e.target.value})}
+            onChange={(e) => this.setState({ password: e.target.value })}
           />
         </div>
 
@@ -69,7 +72,7 @@ export default class SignUp extends Component {
             type="password2"
             className="form-control"
             placeholder="Enter password to confirm"
-            onChange={(e)=> this.setState({password2:e.target.value})}
+            onChange={(e) => this.setState({ password2: e.target.value })}
           />
         </div>
 

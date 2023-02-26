@@ -1,11 +1,11 @@
 import React from 'react'
-
-
+import Navbar from './Navbar'
 function Calendar() {
   return (
-<div>
-    Calandar Page
-</div>
+    <div>
+      <Navbar />
+      Calendar Page
+    </div>
   )
 }
 

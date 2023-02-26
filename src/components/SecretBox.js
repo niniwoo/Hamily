@@ -1,11 +1,13 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 
 function SecretBox() {
   return (
-<div>
-    SecretBox page
-</div>
+    <div>
+      <Navbar />
+      SecretBox page
+    </div>
   )
 }
 

@@ -1,11 +1,13 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 
 function Chat() {
   return (
-<div>
-    Chat Page
-</div>
+    <div>
+      <Navbar />
+      Chat Page
+    </div>
   )
 }
 

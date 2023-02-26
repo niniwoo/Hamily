@@ -1,14 +1,22 @@
 
 import React from 'react'
+import Navbar from './Navbar'
 
 
-function Setting() {
+export default function Setting() {
+
+  const logOut = () => {
+    window.localStorage.clear();
+    window.location.href = "./sign-in";
+  };
   return (
-<div>
-    Setting Page
-</div>
-  )
-}
+    <div>
+      <Navbar />
 
-export default Setting;
+      <button onClick={logOut}>LOGOUT</button>
+
+    </div>
+  );
+
+}
 
