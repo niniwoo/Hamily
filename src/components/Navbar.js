@@ -5,11 +5,11 @@ export default function Navbar() {
     return (
         <nav className='navbar'>
             <ul>
-                <CustomLink to="/question">Q</CustomLink>
-                <CustomLink to="/chat">C</CustomLink>
-                <CustomLink to="/calendar">CA</CustomLink>
-                <CustomLink to="/secret-box">SB</CustomLink>
-                <CustomLink to="/setting">setting</CustomLink>
+                <CustomLink to="/question">Question</CustomLink>
+                <CustomLink to="/chat">Chat</CustomLink>
+                <CustomLink to="/calendar">Calendar</CustomLink>
+                <CustomLink to="/secret-box">SecretBox</CustomLink>
+                <CustomLink to="/setting">Setting</CustomLink>
             </ul>
         </nav>
     )
