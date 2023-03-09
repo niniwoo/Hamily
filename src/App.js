@@ -10,7 +10,7 @@ import Navbar from './components/Navbar'
 import Chat from './components/Chat'
 import Setting from './components/Setting'
 import SecretBox from './components/SecretBox'
-import Calendar from './components/Calendar'
+import Cal from './components/Cal'
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -25,7 +25,7 @@ function App() {
           <Route path='/chat' element={<Chat />} />
           <Route path='/secret-box' element={<SecretBox />} />
           <Route path='/setting' element={<Setting />} />
-          <Route path='/calendar' element={<Calendar />} />
+          <Route path='/calendar' element={<Cal />} />
         </Routes>
       </div>
     </>

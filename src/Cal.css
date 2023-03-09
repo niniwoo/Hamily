@@ -1,0 +1,30 @@
+.react-calendar { 
+ width: 60%;
+ max-width: 100%;
+ background-color: #fff;
+ color: #222;
+ border-radius: 8px;
+ box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+ font-family: Arial, Helvetica, sans-serif;
+ line-height: 1.125em;
+}
+
+abbr[title] {
+ text-decoration: none;
+}
+
+.react-calendar__tile--active {
+ background: #6f48eb;
+ border-radius: 6px;
+ font-weight: bold;
+ color: white;
+}
+
+.react-calendar__tile--rangeStart {
+ border-top-right-radius: 0;
+ border-bottom-right-radius: 0;
+ border-top-left-radius: 6px;
+ border-bottom-left-radius: 6px;
+ background: #6f48eb;
+ color: white;
+}
