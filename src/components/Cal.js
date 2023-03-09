@@ -9,13 +9,14 @@ function Cal() {
   const [date, setDate] = useState(new Date());
   return (
     <div className={StyleSheet.Cal}>
-      <Navbar />
+      <Navbar />      
+      Calendar Page
       <Calendar 
       onChange={setDate} 
       value={date} 
       defaultValue={new Date()}
       />
-      Calendar Page
+    <button>+</button>
     </div>
   )
 }
