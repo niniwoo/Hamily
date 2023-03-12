@@ -4,7 +4,8 @@ import Navbar from "./Navbar";
 const SecretBox = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [context, setContext] = useState("");
-  const [result, setResult] = useState("");
+  const [user, setUser] = useState("");
+  const [responses, setResponses] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -13,9 +14,14 @@ const SecretBox = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Do something with the user's responses
-    console.log(context);
-    setResult(`You entered: ${isChecked ? "Anonymous" : "Not anonymous"}, ${context}`);
+
+    // Add the user's response to the array
+    const newResponse = {
+      anonymous: isChecked,
+      context: context,
+      user: user,
+    };
+    setResponses([...responses, newResponse]);
     setShowForm(false);
   };
 
@@ -25,9 +31,15 @@ const SecretBox = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       {showForm ? (
         <form onSubmit={handleSubmit}>
+          {!isChecked && (
+            <div>
+              User :{" "}
+              <input type="text" id="user" onChange={(e) => setUser(e.target.value)} />
+            </div>
+          )}
           <label htmlFor="checkbox">Anonymous:</label>
           <input
             type="checkbox"
@@ -49,7 +61,14 @@ const SecretBox = () => {
       ) : (
         <button onClick={handleShowForm}>Add SecretBox</button>
       )}
-      <p>{result}</p>
+
+      <ul>
+        {responses.map((response, index) => (
+          <li key={index}>
+           User name:   {response.anonymous ? "Anonymous" : response.user} <br/> {response.context}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
