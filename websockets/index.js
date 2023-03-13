@@ -1,0 +1,14 @@
+const express = require("express"); 
+const app = express(); 
+const http = require("http"); 
+const server = http.createServer(app); 
+const port = 3005; const { Server } = require("socket.io"); 
+const io = new Server(server); app.get("/", (req, res) => { res.sendFile(__dirname + "/index.html"); 
+console.log("homepage loaded"); }); 
+io.on("connection", (socket) => { console.log("a user connected"); 
+socket.on("disconnect", () => { console.log("user disconnected"); }); 
+socket.on("chat message", (msg) => { io.emit("chat message", msg); 
+console.log("message: " + msg); }); 
+socket.on("username", (name) => { io.emit("username", name); 
+console.log("name: " + name); }); }); 
+server.listen(port, () => { console.log(`listening on port *:${port}`); });
