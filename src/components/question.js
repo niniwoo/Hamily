@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
+
+import Answer from './Answer';
 
 function Question() {
   const [userData, setUserData] = useState("");
+  const [currentQuestion, setCurrentQuestion] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/question", {
@@ -26,9 +30,9 @@ function Question() {
   }, []);
 
   const questions = [
+    "What kind of learner are you?",
     "Are you a cat or a dog?",
     "What are you looking for?",
-    "What kind of learner are you?",
     "What food would you be?",
     "What do you think you’ll be doing five years from now?",
     "Who is the most interesting person you’ve ever met?",
@@ -125,35 +129,43 @@ function Question() {
     "If you were to die tomorrow, what would you most regret not having done?",
     "What is your most embarrassing moment?",
     "What is the most important thing you have ever done?",
+
+    
   ];
 
   const today = new Date();
-  const index = today.getDate() % questions.length;
+  const monthNumber = today.getMonth();
+  const dayNumber = today.getDate();
+  const index = dayNumber % questions.length;
 
   const [question, setQuestion] = useState(questions[index]);
 
   useEffect(() => {
-    setQuestion(questions[index]);
-  }, []);
+    const newIndex = (index + 1) % questions.length;
+    const newQuestion = questions[newIndex];
+    setQuestion(newQuestion);
+    setCurrentQuestion(newQuestion);
+  }, [index, setCurrentQuestion]);
 
-  const logOut = () => {
-    window.localStorage.clear();
-    window.location.href = "./sign-in";
+  const navigate = useNavigate();
+
+  const goToAnswer = () => {
+    navigate("/answer", { state: { question: question, monthNumber:monthNumber, dayNumber:dayNumber } }); 
   };
 
   return (
-    <div >
+    <div>
       <Navbar />
-      <p>
-        Hello, {userData.email}!
-      </p>
-      <button onClick={logOut}>LOGOUT</button>
-
-      <h1>Question of the day:</h1>
+      <p>Hello, {userData.email}!</p>
+      <h1>Question of {monthNumber}/{dayNumber}:</h1>
       <p>{question}</p>
-
+      <button onClick={goToAnswer}>Write The answer</button>
+      <button> Check all the answer</button>
+     
     </div>
   );
+  
 }
 
 export default Question;
+

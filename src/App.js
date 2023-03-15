@@ -11,6 +11,7 @@ import Chat from './components/Chat'
 import Setting from './components/Setting'
 import SecretBox from './components/SecretBox'
 import Cal from './components/Cal'
+import Answer from './components/Answer'
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -20,6 +21,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={isLoggedIn == "true" ? <Question /> : <Login />} />
           <Route path="/question" element={<Question />} />
+          <Route path="/answer" element={<Answer />} />
+
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path='/chat' element={<Chat />} />
