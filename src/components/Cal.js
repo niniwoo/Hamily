@@ -9,6 +9,8 @@ function Cal() {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState('');
   const [username, setUsername] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const handleAddEvent = () => {
     setShowForm(true);
@@ -18,11 +20,27 @@ function Cal() {
 
   const handleTitleChange = (event) => setTitle(event.target.value);
 
+  const handleStartDateChange = (date) => setStartDate(date);
+
+  const handleEndDateChange = (date) => setEndDate(date);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (title) {
-      const newEvent = { title, date, username };
-      setEvents([...events, newEvent]);
+      // create an array of dates between the start and end date
+      const dates = [];
+      const currentDate = new Date(startDate);
+      while (currentDate <= endDate) {
+        dates.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      // create a new event for each date in the array
+      dates.forEach((date) => {
+        const newEvent = { title, date, username };
+        setEvents([...events, newEvent]);
+      });
+
       setTitle('');
       setUsername('');
       setShowForm(false);
@@ -35,7 +53,6 @@ function Cal() {
       <div>
         <p>{event && event.username}</p>
         <p>{event && event.title}</p>
-        
       </div>
     );
   };
@@ -57,6 +74,16 @@ function Cal() {
             <label>
               Event Title:
               <input type="text" value={title} onChange={handleTitleChange} />
+            </label>
+            <br />
+            <label>
+              Start Date:
+              <input type="date" value={startDate.toISOString().substring(0, 10)} onChange={(e) => handleStartDateChange(new Date(e.target.value))} />
+            </label>
+            <br />
+            <label>
+              End Date:
+              <input type="date" value={endDate.toISOString().substring(0, 10)} onChange={(e) => handleEndDateChange(new Date(e.target.value))} />
             </label>
             <br />
             <button type="submit">Add Event</button>
