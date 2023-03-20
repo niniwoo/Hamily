@@ -10,11 +10,9 @@ export default function Setting() {
     window.location.href = "./sign-in";
   };
   return (
-    <div>
+    <div className='container'>
+      <button onClick={logOut} className="logout-btn">LOGOUT</button>
       <Navbar />
-
-      <button onClick={logOut}>LOGOUT</button>
-
     </div>
   );
 

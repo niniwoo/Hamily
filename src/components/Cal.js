@@ -56,16 +56,22 @@ function Cal() {
       </div>
     );
   };
+  function handleCloseForm() {
+    setShowForm(false);
+  }
   
 
   return (
     <div className={style.Cal}>
-      <Navbar />
-      <div>
-        <h1>Calendar Page</h1>
-        <Calendar onChange={setDate} value={date} defaultValue={new Date()} tileContent={tileContent} />
+      <div className='container'>
+        <div className='cal-container'>
+        <Calendar onChange={setDate} value={date} defaultValue={new Date()} tileContent={tileContent}/>
+        </div>
         {showForm ? (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className='form-container'>
+          <div className='form-box'>
+            <button className='close-btn' onClick={handleCloseForm}>x</button>
+            <br/>
             <label>
               Your Name:
               <input type="text" value={username} onChange={handleUsernameChange} />
@@ -86,12 +92,17 @@ function Cal() {
               <input type="date" value={endDate.toISOString().substring(0, 10)} onChange={(e) => handleEndDateChange(new Date(e.target.value))} />
             </label>
             <br />
-            <button type="submit">Add Event</button>
-          </form>
+            <button type="submit" className='cal-form-btn'>Add Event</button>
+          </div>
+        </form>
+        
         ) : (
-          <button onClick={handleAddEvent}>Add Event</button>
+          <button onClick={handleAddEvent} className='cal-add-btn'>Add Event</button>
         )}
+    
+     
       </div>
+      <Navbar />
     </div>
   );
 }

@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import styles from '../css/login.css'
+import logo from '../css/img/hamily-logo.png';
+
+
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -43,13 +48,13 @@ export default class Login extends Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <Link to={'/sign-in'}>Login </Link>
-        <Link to={'/sign-up'}> Sign up </Link>
-        <h3>Sign In</h3>
+      <div className='container'>
+       <form onSubmit={this.handleSubmit} className='login-page'>
+       <img src={logo} alt="logo-hamily2" className='logo' />
+        {/* <h3>Sign In</h3> */}
 
         <div>
-          <label>Email address</label>
+          {/* <label>Email address</label> */}
           <input
             type="email"
             className="form-control"
@@ -59,7 +64,7 @@ export default class Login extends Component {
         </div>
 
         <div >
-          <label>Password</label>
+          {/* <label>Password</label> */}
           <input
             type="password"
             className="form-control"
@@ -69,12 +74,15 @@ export default class Login extends Component {
         </div>
 
         <div>
-          <button type="submit">
+          <button type="submit" className='login-btn'>
             Submit
           </button>
         </div>
-
+        {/* <Link to={'/sign-in'}>Login </Link> */}
+        <p>Don't have an account?  <Link to={'/sign-up'}>create new one</Link></p>  
       </form>
+      </div>
+     
     )
   }
 }

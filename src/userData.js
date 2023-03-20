@@ -11,3 +11,4 @@ const User = new mongoose.Schema(
 );
 
 mongoose.model('UserInfo',User);
+

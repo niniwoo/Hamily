@@ -22,9 +22,9 @@ function Answer() {
   };
 
   return (
-    <div>
-      <Navbar />
-      <h2>Question of {month}/{day}: {question}</h2>
+    <div className='container'>
+     
+      <p>Question of {month}/{day}: {question}</p>
       <form onSubmit={handleFormSubmit}>
         <label>
           Your answer:
@@ -33,7 +33,7 @@ function Answer() {
         <button type="submit">POST</button>
       </form>
       <p>{answer}</p>
-
+      <Navbar />
     </div>
   );
 }

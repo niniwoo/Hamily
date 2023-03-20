@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
-
+import style from '../css/signup.css';
 import Answer from './Answer';
+import icon from '../css/img/love-letter.png';
 
 function Question() {
   const [userData, setUserData] = useState("");
@@ -154,14 +155,20 @@ function Question() {
   };
 
   return (
-    <div>
-      <Navbar />
+    <div className='container'>
+      <div className='question-container'>
       <p>Hello, {userData.email}!</p>
-      <h1>Question of {monthNumber}/{dayNumber}:</h1>
+      <p>Question of {monthNumber}/{dayNumber}:</p>
       <p>{question}</p>
-      <button onClick={goToAnswer}>Write The answer</button>
-      <button> Check all the answer</button>
-     
+      <img src={icon} alt='letter-icon' className='letter-icon'></img>
+      <br/>
+      <button onClick={goToAnswer} className='question-write-btn'>Write The answer</button>
+      <br/>
+      <button className='question-check-btn'> Check all the answer</button>
+      <br/>
+      <Navbar />
+      </div>
+    
     </div>
   );
   

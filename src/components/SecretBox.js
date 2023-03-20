@@ -30,8 +30,8 @@ const SecretBox = () => {
   };
 
   return (
-    <div>
-      <Navbar />
+    <div className="container">
+      <div className="secretbox-container">
       {showForm ? (
         <form onSubmit={handleSubmit}>
           {!isChecked && (
@@ -56,19 +56,25 @@ const SecretBox = () => {
             value={context}
             onChange={(e) => setContext(e.target.value)}
           />
-          <button type="submit">Submit</button>
+          <button type="submit" className="sb-submit-btn">Submit</button>
         </form>
       ) : (
-        <button onClick={handleShowForm}>Add SecretBox</button>
+        <button onClick={handleShowForm} className="sb-add-btn">Add SecretBox</button>
       )}
 
       <ul>
-        {responses.map((response, index) => (
-          <li key={index}>
+        <div >
+           {responses.map((response, index) => (
+          <li key={index} className="sb-answer-container">
            User name:   {response.anonymous ? "Anonymous" : response.user} <br/> {response.context}
           </li>
         ))}
+        </div>
+       
       </ul>
+      </div>
+    
+      <Navbar />
     </div>
   );
 };

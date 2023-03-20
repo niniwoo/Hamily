@@ -1,0 +1,19 @@
+.signup-btn{
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.signup-form{
+    margin: 20px;
+}
+
+
+@media only screen and (max-width: 390px) {
+
+}
+

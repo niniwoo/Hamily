@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import styles from '../css/signup.css'
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -17,7 +18,11 @@ export default class SignUp extends Component {
     const { email, password, password2 } = this.state;
     if (password !== password2) {
       alert('Please check the password');
-    } else {
+    }
+    if(email == "" || password == "" || password2 ==""){
+      alert('Please enter all the information');
+    } 
+    else {
       console.log(email, password, password2);
       fetch("http://localhost:3000/register", {
         method: "POST",
@@ -43,12 +48,13 @@ export default class SignUp extends Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <Link to={'/sign-in'}>Login </Link>
-        <Link to={'/sign-up'}> Sign up </Link>
+      <div className='container'>
+      <form onSubmit={this.handleSubmit} className="signup-form">
+        {/* <Link to={'/sign-in'}>Login </Link>
+        <Link to={'/sign-up'}> Sign up </Link> */}
         <h3>Sign Up</h3>
         <div >
-          <label>Email address</label>
+          {/* <label>Email address</label> */}
           <input
             type="email"
             className="form-control"
@@ -58,7 +64,7 @@ export default class SignUp extends Component {
         </div>
 
         <div>
-          <label>Password</label>
+          {/* <label>Password</label> */}
           <input
             type="password"
             className="form-control"
@@ -68,7 +74,7 @@ export default class SignUp extends Component {
         </div>
 
         <div>
-          <label>Password Confirmation</label>
+          {/* <label>Password Confirmation</label> */}
           <input
             type="password2"
             className="form-control"
@@ -78,7 +84,7 @@ export default class SignUp extends Component {
         </div>
 
         <div>
-          <button type="submit">
+          <button type="submit" className='signup-btn'>
             Sign Up
           </button>
         </div>
@@ -86,6 +92,8 @@ export default class SignUp extends Component {
           Already registered <a href="/sign-in">sign in?</a>
         </p>
       </form>
+      </div>
+
     )
   }
 }
