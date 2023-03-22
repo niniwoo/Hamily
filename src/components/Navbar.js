@@ -23,7 +23,7 @@ export default function Navbar() {
 function CustomLink({ to, icon, children, ...props }) {
   const path = window.localStorage.pathname;
   return (
-    <div className='navbar'>
+    <div>
       <li className={path === to ? "active" : ""}>
         <Link to={to} {...props}>
           <img src={icon} alt={children} className='nav-icons'  />
