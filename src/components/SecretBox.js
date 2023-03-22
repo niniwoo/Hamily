@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
+import Banner from "./Banner.js";
 
 const SecretBox = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -28,14 +29,19 @@ const SecretBox = () => {
   const handleShowForm = () => {
     setShowForm(true);
   };
-
+  function handleCloseForm() {
+    setShowForm(false);
+  }
   return (
-    <div className="container">
+    <>
+    <Banner/>
+     <div className="container secretbox">
       <div className="secretbox-container">
       {showForm ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="sb-form">
           {!isChecked && (
             <div>
+              <button className='close-btn' onClick={handleCloseForm}>x</button>
               User :{" "}
               <input type="text" id="user" onChange={(e) => setUser(e.target.value)} />
             </div>
@@ -56,6 +62,7 @@ const SecretBox = () => {
             value={context}
             onChange={(e) => setContext(e.target.value)}
           />
+          <br/>
           <button type="submit" className="sb-submit-btn">Submit</button>
         </form>
       ) : (
@@ -76,6 +83,8 @@ const SecretBox = () => {
     
       <Navbar />
     </div>
+    </>
+   
   );
 };
 

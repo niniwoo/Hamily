@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Calendar from 'react-calendar';
 import style from '../Cal.css';
+import Banner from './Banner.js';
 
 function Cal() {
   const [date, setDate] = useState(new Date());
@@ -62,7 +63,9 @@ function Cal() {
   
 
   return (
-    <div className={style.Cal}>
+    <>
+    <Banner/>
+      <div className={style.Cal}>
       <div className='container'>
         <div className='cal-container'>
         <Calendar onChange={setDate} value={date} defaultValue={new Date()} tileContent={tileContent}/>
@@ -104,6 +107,8 @@ function Cal() {
       </div>
       <Navbar />
     </div>
+    </>
+  
   );
 }
 

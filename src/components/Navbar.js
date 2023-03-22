@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav className='navbar'>
       
         <CustomLink to="/question" icon={questionIcon}></CustomLink>
-        <CustomLink to="/chat" icon={chatIcon}></CustomLink>
+        <CustomLink to="/chat" icon={chatIcon} ></CustomLink>
         <CustomLink to="/calendar" icon={calendarIcon}></CustomLink>
         <CustomLink to="/secret-box" icon={sbIcon}></CustomLink>
         <CustomLink to="/setting" icon={settingIcon}></CustomLink>

@@ -2,16 +2,15 @@ import React from 'react'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-
 import Login from './components/login.components'
 import SignUp from './components/signup.components'
 import Question from './components/question'
-import Navbar from './components/Navbar'
 import Chat from './components/Chat'
 import Setting from './components/Setting'
 import SecretBox from './components/SecretBox'
 import Cal from './components/Cal'
 import Answer from './components/Answer'
+import Information from './components/Information'
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -28,6 +27,7 @@ function App() {
           <Route path='/chat' element={<Chat />} />
           <Route path='/secret-box' element={<SecretBox />} />
           <Route path='/setting' element={<Setting />} />
+          <Route path='/information' element={<Information />} />
           <Route path='/calendar' element={<Cal />} />
         </Routes>
       </div>

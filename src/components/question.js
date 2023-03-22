@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
-import style from '../css/signup.css';
-import Answer from './Answer';
+import Banner from './Banner.js';
 import icon from '../css/img/love-letter.png';
+import { appContext } from '../providers/AppProvider';
 
 function Question() {
   const [userData, setUserData] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState("");
+  const {chatName,setChatName} = useContext(appContext);
 
   useEffect(() => {
     fetch("http://localhost:3000/question", {
@@ -27,6 +28,8 @@ function Question() {
       .then((data) => {
         console.log(data, "userData");
         setUserData(data.data);
+        setChatName(data.data.email);
+        console.log('chatName:  ',chatName);
       });
   }, []);
 
@@ -148,6 +151,7 @@ function Question() {
     setCurrentQuestion(newQuestion);
   }, [index, setCurrentQuestion]);
 
+
   const navigate = useNavigate();
 
   const goToAnswer = () => {
@@ -155,6 +159,8 @@ function Question() {
   };
 
   return (
+    <>        
+    <Banner/>
     <div className='container'>
       <div className='question-container'>
       <p>Hello, {userData.email}!</p>
@@ -170,6 +176,8 @@ function Question() {
       </div>
     
     </div>
+  </>
+
   );
   
 }

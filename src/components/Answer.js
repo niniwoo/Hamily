@@ -30,7 +30,7 @@ function Answer() {
           Your answer:
           <input type="text" value={inputValue} onChange={handleInputChange}></input>
         </label>
-        <button type="submit">POST</button>
+        <button type="submit" className='answer-btn'>POST</button>
       </form>
       <p>{answer}</p>
       <Navbar />
