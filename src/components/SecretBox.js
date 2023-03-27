@@ -34,8 +34,9 @@ const SecretBox = () => {
   }
   return (
     <>
-    <Banner/>
-     <div className="container secretbox">
+    
+     <div className="container">
+     <Banner/>
       <div className="secretbox-container">
       {showForm ? (
         <form onSubmit={handleSubmit} className="sb-form">
@@ -66,11 +67,11 @@ const SecretBox = () => {
           <button type="submit" className="sb-submit-btn">Submit</button>
         </form>
       ) : (
-        <button onClick={handleShowForm} className="sb-add-btn">Add SecretBox</button>
+        <button onClick={handleShowForm} className="sb-add-btn"> Spill the tea! </button>
       )}
 
       <ul>
-        <div >
+        <div className="sb-boxes">
            {responses.map((response, index) => (
           <li key={index} className="sb-answer-container">
            User name:   {response.anonymous ? "Anonymous" : response.user} <br/> {response.context}

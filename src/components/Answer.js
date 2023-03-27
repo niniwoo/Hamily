@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import{ useState } from 'react';
+import { useState } from 'react';
 import Navbar from './Navbar';
 
 function Answer() {
@@ -15,17 +15,40 @@ function Answer() {
     setInputValue(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setAnswer(inputValue);
     setInputValue("");
+    fetch("/answers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        month:month,
+        day:day,
+        question:question,
+        answer: inputValue,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "ok") {
+          alert("Saved your answer!");
+        } else {
+          alert("Failed to save your answer.");
+        }
+      })
+      .catch((error) => {
+        alert("Error occurred while saving your answer.");
+      });
   };
+  
 
   return (
     <div className='container'>
-     
       <p>Question of {month}/{day}: {question}</p>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           Your answer:
           <input type="text" value={inputValue} onChange={handleInputChange}></input>

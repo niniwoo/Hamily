@@ -18,13 +18,12 @@ const navigate = useNavigate();
   };
   return (
     <>    
-    <Banner/>
     <div className='container'>
+      <Banner/>
       <div className='setting-btns'>
       <button onClick={goToInfo}className="info-btn">INFORMATION</button>
       <button onClick={logOut} className="logout-btn">LOGOUT</button>
       </div>
-
       <Navbar />
     </div>
     </>

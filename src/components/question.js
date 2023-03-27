@@ -6,7 +6,7 @@ import icon from '../css/img/love-letter.png';
 import { appContext } from '../providers/AppProvider';
 
 function Question() {
-  const [userData, setUserData] = useState("");
+
   const [currentQuestion, setCurrentQuestion] = useState("");
   const {chatName,setChatName} = useContext(appContext);
 
@@ -26,9 +26,9 @@ function Question() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userData");
-        setUserData(data.data);
-        setChatName(data.data.email);
+        
+        // setUserData(data.data);
+        setChatName(data.data.username);
         console.log('chatName:  ',chatName);
       });
   }, []);
@@ -160,21 +160,31 @@ function Question() {
 
   return (
     <>        
-    <Banner/>
+    
     <div className='container'>
+    <Banner/>
       <div className='question-container'>
-      <p>Hello, {userData.email}!</p>
-      <p>Question of {monthNumber}/{dayNumber}:</p>
-      <p>{question}</p>
+        <div className='question-info'>
+          <br/>
+            <h3>Question of {monthNumber}/{dayNumber}:</h3>
+        
+        </div>
+
       <img src={icon} alt='letter-icon' className='letter-icon'></img>
       <br/>
-      <button onClick={goToAnswer} className='question-write-btn'>Write The answer</button>
-      <br/>
-      <button className='question-check-btn'> Check all the answer</button>
-      <br/>
-      <Navbar />
+      <div className='question'>
+            <b>{question}</b>
       </div>
+
     
+      </div>      
+      <div className='question-btns'>
+        <button onClick={goToAnswer} className='question-write-btn'>Write The answer</button>
+        <br/>
+        <button className='question-check-btn'> Check all the answer</button>
+        <br/>
+      </div>
+      <Navbar />
     </div>
   </>
 

@@ -42,8 +42,9 @@ setInputValue("");
 }
 return (
   <>
-  <Banner/>
+  
   <div className="container">
+    <Banner/>
 <ul id="messages"></ul>
 <form id="form" action="" onSubmit={handleSubmit} className="chat-form">
     <div className="inputbtn">

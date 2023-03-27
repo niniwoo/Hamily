@@ -64,9 +64,10 @@ function Cal() {
 
   return (
     <>
-    <Banner/>
+    
       <div className={style.Cal}>
       <div className='container'>
+        <Banner/>
         <div className='cal-container'>
         <Calendar onChange={setDate} value={date} defaultValue={new Date()} tileContent={tileContent}/>
         </div>
