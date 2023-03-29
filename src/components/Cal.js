@@ -76,27 +76,30 @@ function Cal() {
           <div className='form-box'>
             <button className='close-btn' onClick={handleCloseForm}>x</button>
             <br/>
+            <div className='cal-form-context'>
             <label>
               Your Name:
               <input type="text" value={username} onChange={handleUsernameChange} />
             </label>
             <br />
             <label>
-              Event Title:
+              Event Title  :
               <input type="text" value={title} onChange={handleTitleChange} />
             </label>
             <br />
             <label>
-              Start Date:
+              Start Date  :
               <input type="date" value={startDate.toISOString().substring(0, 10)} onChange={(e) => handleStartDateChange(new Date(e.target.value))} />
             </label>
             <br />
             <label>
-              End Date:
+              End Date     :
               <input type="date" value={endDate.toISOString().substring(0, 10)} onChange={(e) => handleEndDateChange(new Date(e.target.value))} />
             </label>
             <br />
             <button type="submit" className='cal-form-btn'>Add Event</button>
+            </div>
+          
           </div>
         </form>
         
@@ -104,9 +107,9 @@ function Cal() {
           <button onClick={handleAddEvent} className='cal-add-btn'>Add Event</button>
         )}
     
-     
+        <Navbar />
       </div>
-      <Navbar />
+   
     </div>
     </>
   

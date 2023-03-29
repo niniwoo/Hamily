@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Navbar from './Navbar';
-
+import Banner from './Banner';
 function Answer() {
   const [inputValue, setInputValue] = useState("");
   const [answer, setAnswer] = useState("");
@@ -47,6 +47,8 @@ function Answer() {
 
   return (
     <div className='container'>
+          <Banner/>
+
       <p>Question of {month}/{day}: {question}</p>
       <form onSubmit={handleSubmit}>
         <label>

@@ -8,14 +8,28 @@ import { appContext } from "../providers/AppProvider";
 const socket = io("http://localhost:3005", { transports: ["websocket"] });
 
 function Chat() {
-const {chatName} = useContext(appContext);
+
+// const {chatName} = useContext(appContext);
 const [inputValue, setInputValue] = useState("");
 const [userName, setUserName] = useState("");
 const [textArray, setTextArray] = useState([]);
 
-useEffect(()=>{
-    setUserName(chatName);
-},[handleSubmit]);
+// useEffect(()=>{
+//     setUserName(chatName);
+// },[handleSubmit]);
+useEffect(() => { 
+    fetch("http://localhost:3000/login") 
+    .then((response) => { 
+        if (response.ok) { return response.json(); } 
+        throw new Error("Network response was not ok."); }) 
+        .then((data) => { 
+            console.log("data", data); 
+            setUserName(data); 
+        }) 
+        .catch((error) => {
+             console.error("There was a problem with the fetch operation:", error); 
+            });
+         }, []);
 
 
 
@@ -34,7 +48,7 @@ console.log("username: ", userName);
 
 
 if (inputValue !== "") {
-socket.emit("chat message", `\n${userName}: ${inputValue}`);
+socket.emit("chat message", `\n${inputValue}`);
 
 
 setInputValue("");
@@ -58,11 +72,16 @@ onChange={(e) => setInputValue(e.target.value)}
     </div>
 
 </form>
-<p>
-{textArray.map((element, index) => {
-return <li key={index} className="chat-element">{element}</li>;
-})}
+<div className="msg-container">
+     <p className="message">
+    {textArray.map((element, index) => {
+      return <li key={index} className="chat-element">{element}</li>;
+    })}
 </p>
+</div>
+   
+
+
 <Navbar />
 </div>
   </>

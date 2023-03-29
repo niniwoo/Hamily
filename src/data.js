@@ -108,6 +108,30 @@ app.post("/login", async (req, res) => {
     res.json({ status: 'error', error: "invalid password" });
 
 });
+app.get("/login", async (req, res) => { 
+    const users = await Users.findOne({email:req.email}); 
+    // res.send(JSON.stringify(users[users.length - 1].username)); 
+    res.json({ username: user.username });
+    console.log("users from the /login route: ", users);
+    console.log(req.params);
+     
+    });
+
+app.post("/question", async (req, res) => {
+    const { token } = req.body;
+    try {
+        const user = jwt.verify(token, JWT_SECRET);
+        //console.log(user);
+        const useremail = user.email;
+        User.findOne({ email: useremail })
+            .then((data) => {
+                res.send({ status: "okay", data: data });
+            })
+            .catch((error) => {
+                res.send({ status: "error", data: error })
+            });
+    } catch (error) { }
+})
 
 
 app.listen(3000, () => {
