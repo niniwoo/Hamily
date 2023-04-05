@@ -11,6 +11,7 @@ import SecretBox from './components/SecretBox'
 import Cal from './components/Cal'
 import Answer from './components/Answer'
 import Information from './components/Information'
+import PastAnswer from './components/PastAnswer'
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/" element={isLoggedIn == "true" ? <Question /> : <Login />} />
           <Route path="/question" element={<Question />} />
           <Route path="/answer" element={<Answer />} />
+          <Route path="/history" element={<PastAnswer />} />
 
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />

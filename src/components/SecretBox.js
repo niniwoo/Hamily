@@ -1,20 +1,89 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Navbar from "./Navbar";
 import Banner from "./Banner.js";
 
 const SecretBox = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [context, setContext] = useState("");
+  const [secrets, setSecrets] = useState([]);
   const [user, setUser] = useState("");
+  const [sentences,setSentences] =  useState("");
   const [responses, setResponses] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
+  useEffect(() => {
+    fetch("http://localhost:4000/secret")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("secret userData: ", data);
+        setSecrets(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  
+  useEffect(() => {
+    if (isChecked) {
+      setUser('anonymous');
+      return;
+    }
+
+    fetch("http://localhost:4000/question",{
+      method:"POST",
+      crossDomain:true,
+      headers:{
+        mode:'no-cors',
+        "Content-Type":"application/json",
+        Accept:"application/json",
+        "Access-Control-Allow-Origin":"*",
+      },
+      body:JSON.stringify({
+        token: window.localStorage.getItem("token"),
+      }),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log("answer userData: ", data);
+        setUser(data?.data?.username);  
+    })
+    .catch((error) => {
+        console.log(error);
+    }); 
+  }, [isChecked])
+
+  
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSentences(context);
+
+    fetch("http://localhost:4000/secret", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      }, 
+      body: JSON.stringify({
+        username: user,
+        sentences:context,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data from the answer component", data);
+        if (data.status === "ok") {
+          alert("Saved your answer!");
+           // set answer state to show the answer below the form
+        } else {
+          alert("Failed to save your answer.");
+        }
+      })
+      .catch((error) => {
+        alert("Error occurred while saving your answer.", error);
+      });
 
     // Add the user's response to the array
     const newResponse = {
@@ -26,6 +95,24 @@ const SecretBox = () => {
     setShowForm(false);
   };
 
+  const handleDeleteSecret = (id) => {
+    fetch(`http://localhost:4000/secret/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // Update the state to remove the deleted secret
+        setSecrets(secrets.filter((secret) => secret._id !== id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  
   const handleShowForm = () => {
     setShowForm(true);
   };
@@ -34,7 +121,6 @@ const SecretBox = () => {
   }
   return (
     <>
-    
      <div className="container">
      <Banner/>
       <div className="secretbox-container">
@@ -43,11 +129,11 @@ const SecretBox = () => {
           {!isChecked && (
             <div>
               <button className='close-btn' onClick={handleCloseForm}>x</button>
-              User :{" "}
-              <input type="text" id="user" onChange={(e) => setUser(e.target.value)} />
+              User : {user}
             </div>
           )}
-          <label htmlFor="checkbox">Anonymous:</label>
+          
+          <label htmlFor="checkbox">Anonymous: </label>
           <input
             type="checkbox"
             id="checkbox"
@@ -56,7 +142,7 @@ const SecretBox = () => {
           />
           <br />
 
-          <label htmlFor="context">Context:</label>
+          <label htmlFor="context">Context: </label>
           <input
             type="text"
             id="context"
@@ -71,14 +157,15 @@ const SecretBox = () => {
       )}
 
       <ul>
-        <div className="sb-boxes">
-           {responses.map((response, index) => (
-          <li key={index} className="sb-answer-container">
-           User name:   {response.anonymous ? "Anonymous" : response.user} <br/> {response.context}
+        {secrets.map((secret) => (
+          <li key={secret._id} className="secret-list">
+            <div className="secrets">
+            <button className='close-btn' onClick={() => handleDeleteSecret(secret._id)}>x</button>
+              <p>Username: {secret.username}</p>
+              <p>Sentences: {secret.sentences}</p>
+            </div>
           </li>
         ))}
-        </div>
-       
       </ul>
       </div>
     

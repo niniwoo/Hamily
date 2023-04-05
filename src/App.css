@@ -33,6 +33,7 @@
 }
 
 .sb-add-btn {
+  
   background-color: orange;
   color: white;
   border: none;
@@ -213,7 +214,14 @@ h3 {
   background-color: white;
   padding: 5px;
 }
-
+.answer-list, .secret-list{
+list-style: none;
+}
+.past-answer{
+  background-color: white;
+  padding: 5px;
+  margin: 3px;
+}
 .letter-icon {
   margin-top: 40px;
   width: 150px;
@@ -226,12 +234,24 @@ h3 {
   margin-left: 30px;
 
 }
+/* does not work but something like this  */
+.message-left {
+  text-align: left;
+  padding-left: 10px;
+  /* background-color: red; */
+}
 
-.message{
+.message-right {
+  text-align: right;
+  padding-right: 10px;
+  /* background-color: blue; */
+}
+/* original css code for message */
+/* .message{
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-}
+} */
 .msg-container{
   display: flex;
   justify-content:flex-end;
@@ -253,7 +273,12 @@ h3 {
   width:250px;
   margin-right: 10px;
 }
-
+.secrets{
+  background-color: white;  
+  border-radius: 5%;
+  padding: 1px;
+  margin: 10px;
+}
 .sb-form{
   
   background-color: white;

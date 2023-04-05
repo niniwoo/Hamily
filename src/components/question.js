@@ -11,7 +11,7 @@ function Question() {
   const {chatName,setChatName} = useContext(appContext);
 
   useEffect(() => {
-    fetch("http://localhost:4000/userData", {
+    fetch("http://localhost:4000/question", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -137,7 +137,7 @@ function Question() {
   ];
 
   const today = new Date();
-  const monthNumber = today.getMonth();
+  const monthNumber = today.getMonth()+1;
   const dayNumber = today.getDate();
   const index = dayNumber % questions.length;
 
@@ -155,6 +155,9 @@ function Question() {
 
   const goToAnswer = () => {
     navigate("/answer", { state: { question: question, monthNumber:monthNumber, dayNumber:dayNumber } }); 
+  };
+  const goToPastAnswer = () => {
+    navigate("/history", { state: { question: question, monthNumber:monthNumber, dayNumber:dayNumber } }); 
   };
 
   return (
@@ -180,7 +183,7 @@ function Question() {
       <div className='question-btns'>
         <button onClick={goToAnswer} className='question-write-btn'>Write The answer</button>
         <br/>
-        <button className='question-check-btn'> Check all the answer</button>
+        <button onClick={goToPastAnswer} className='question-check-btn'> Check all the answer</button>
         <br/>
       </div>
       <Navbar />

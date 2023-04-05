@@ -4,7 +4,6 @@ const app = express();
 const mongoose = require('mongoose');
 app.use(express.json());
 const port = 4000;
-
 const cors = require('cors');
 app.use(cors());
 const bcrypt = require('bcryptjs'); 
@@ -12,7 +11,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); 
 const JWT_SECRET = "sdfs456gsw51ghw6hehr654wgywrgq/gw/-gw"; 
 const mongoUrl = "mongodb+srv://jeonginjoy:RSmmZsbqJg7BdxER@cluster0.aueji3w.mongodb.net/?retryWrites=true&w=majority";
-// const mongoUrl = "mongodb+srv://jeonginjoy:LYA1ZTxRCJZGsv4k@cluster0.aueji3w.mongodb.net/?retryWrites=true&w=majority"
 ;mongoose.set('strictQuery', false);
 
 
@@ -31,6 +29,7 @@ const Users = mongoose.model("UserSignups",User);
 
 const UserAnswer = new mongoose.Schema(
     {
+        username:String,
         month:String,
         day:String,
         question:String,
@@ -51,13 +50,50 @@ mongoose.connect(mongoUrl, {
 const Answers = mongoose.model("Answer",UserAnswer);
 
 app.post("/answers", async (req, res) => {
-    const { month, day, question, answer } = req.body;
+    const { username, month, day, question, answer } = req.body;
     try {
         await Answers.create({
+            username,
             month,
             day,
             question,
             answer,
+        });
+        res.send({ status: "ok",data: body});
+
+
+    } catch (err) {
+        res.status(err);
+    }
+});
+
+app.get("/answers", async (req, res) => {
+    try {
+      const answers = await Answers.find({});
+      res.json({ status: "ok", data: answers });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+  
+const SecretBox = new mongoose.Schema(
+    {
+        username:String,
+        sentences:String,
+
+    },{
+        collection:"Secretbox",
+    }
+);
+const Secret = mongoose.model("Secretbox",SecretBox);
+
+app.post("/secret", async (req, res) => {
+    const { username, sentences } = req.body;
+    try {
+        await Secret.create({
+            username,
+            sentences,
         });
         res.send({ status: "ok" })
 
@@ -65,6 +101,29 @@ app.post("/answers", async (req, res) => {
         res.send({ status: "error :(" });
     }
 });
+
+app.get("/secret", async (req, res) => {
+    try {
+      const secrets = await Secret.find({});
+      res.json({ status: "ok", data: secrets });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+  
+app.delete("/secret/:id", async (req, res) => {
+const { id } = req.params;
+try {
+    const result = await Secret.deleteOne({ _id: id });
+    res.status(200).json({ message: "Secret deleted successfully." });
+} catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error occurred while deleting secret." });
+}
+});
+  
+
 
 app.post("/register", async (req, res) => {
     const { email, username, password, password2 } = req.body;
@@ -111,14 +170,7 @@ app.post("/login", async (req, res) => {
     res.json({ status: 'error', error: "invalid password" });
 
 });
-// app.get("/login", async (req, res) => { 
-//     const users = await Users.findOne({username:req.username}); 
-//     // res.send(JSON.stringify(users[users.length - 1].username)); 
-//     res.json({ username: users.username });
-//     console.log("users from the /login route: ", users);
-//     console.log(req.params);
-     
-//     });
+
 app.get("/login",async(req,res)=>{
         console.log(res);
     try{
@@ -146,16 +198,16 @@ app.post("/question", async (req, res) => {
     } catch (error) { }
 })
 
-app.get("/getData",async(req,res)=>{
-    console.log(res);
-    try{
-        const allUser = await Users.findOne({username:"niniwoo"});
-        res.send({ status: "ok",data:allUser});
+// app.get("/getData",async(req,res)=>{
+//     console.log(res);
+//     try{
+//         const allUser = await Users.findOne({username:"niniwoo"});
+//         res.send({ status: "ok",data:allUser});
 
-    }catch(error){
-        console.log(error);
-    }
-})
+//     }catch(error){
+//         console.log(error);
+//     }
+// })
 
 app.post("/userData", async(req, res) => {
     const { token } = req.body;
