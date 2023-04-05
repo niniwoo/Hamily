@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 app.use(express.json());
+const port = 4000;
 
 const cors = require('cors');
 app.use(cors());
@@ -11,7 +12,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); 
 const JWT_SECRET = "sdfs456gsw51ghw6hehr654wgywrgq/gw/-gw"; 
 const mongoUrl = "mongodb+srv://jeonginjoy:RSmmZsbqJg7BdxER@cluster0.aueji3w.mongodb.net/?retryWrites=true&w=majority";
-mongoose.set('strictQuery', false);
+// const mongoUrl = "mongodb+srv://jeonginjoy:LYA1ZTxRCJZGsv4k@cluster0.aueji3w.mongodb.net/?retryWrites=true&w=majority"
+;mongoose.set('strictQuery', false);
 
 
 const User = new mongoose.Schema(
@@ -24,6 +26,8 @@ const User = new mongoose.Schema(
         collection:"UserSignups",
     }
 );
+const Users = mongoose.model("UserSignups",User);
+
 
 const UserAnswer = new mongoose.Schema(
     {
@@ -44,8 +48,6 @@ mongoose.connect(mongoUrl, {
     console.log("connected to database");
 }).catch((e) => console.log(e));
 
-// require("./userData");
-const Users = mongoose.model("UserSignups",User);
 const Answers = mongoose.model("Answer",UserAnswer);
 
 app.post("/answers", async (req, res) => {
@@ -86,6 +88,7 @@ app.post("/register", async (req, res) => {
     } catch (error) {
         res.send({ status: "error :(" });
     }
+    res.send("testinggg");
 });
 //create login api
 app.post("/login", async (req, res) => {
@@ -108,14 +111,24 @@ app.post("/login", async (req, res) => {
     res.json({ status: 'error', error: "invalid password" });
 
 });
-app.get("/login", async (req, res) => { 
-    const users = await Users.findOne({email:req.email}); 
-    // res.send(JSON.stringify(users[users.length - 1].username)); 
-    res.json({ username: user.username });
-    console.log("users from the /login route: ", users);
-    console.log(req.params);
+// app.get("/login", async (req, res) => { 
+//     const users = await Users.findOne({username:req.username}); 
+//     // res.send(JSON.stringify(users[users.length - 1].username)); 
+//     res.json({ username: users.username });
+//     console.log("users from the /login route: ", users);
+//     console.log(req.params);
      
-    });
+//     });
+app.get("/login",async(req,res)=>{
+        console.log(res);
+    try{
+        const allUser = await Users.find({username:req.username});
+        res.send({ status: "ok",data:allUser});
+
+    }catch(error){
+        console.log(error);
+    }
+})
 
 app.post("/question", async (req, res) => {
     const { token } = req.body;
@@ -123,7 +136,7 @@ app.post("/question", async (req, res) => {
         const user = jwt.verify(token, JWT_SECRET);
         //console.log(user);
         const useremail = user.email;
-        User.findOne({ email: useremail })
+        Users.findOne({ email: useremail })
             .then((data) => {
                 res.send({ status: "okay", data: data });
             })
@@ -133,8 +146,38 @@ app.post("/question", async (req, res) => {
     } catch (error) { }
 })
 
+app.get("/getData",async(req,res)=>{
+    console.log(res);
+    try{
+        const allUser = await Users.findOne({username:"niniwoo"});
+        res.send({ status: "ok",data:allUser});
 
-app.listen(3000, () => {
+    }catch(error){
+        console.log(error);
+    }
+})
+
+app.post("/userData", async(req, res) => {
+    const { token } = req.body;
+    try {
+        const user = jwt.verify(token,JWT_SECRET);
+        console.log(user);
+        const useremail = user.email;
+        Users.findOne({ email:useremail })
+            .then((data) => {
+                res.send({ status: "okay", data:data });
+            })
+            .catch((error) => {
+                res.send({ status: "error", data:error })
+            });
+
+    } catch (error) {
+        res.send({ status: "error", data:error })
+    }
+})
+
+app.listen(port, () => {
+    console.log("port running on: ", port)
     console.log("server started");
 })
 

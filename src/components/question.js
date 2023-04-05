@@ -11,7 +11,7 @@ function Question() {
   const {chatName,setChatName} = useContext(appContext);
 
   useEffect(() => {
-    fetch("http://localhost:3000/question", {
+    fetch("http://localhost:4000/userData", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -27,9 +27,8 @@ function Question() {
       .then((res) => res.json())
       .then((data) => {
         
-        // setUserData(data.data);
-        setChatName(data.data.username);
-        console.log('chatName:  ',chatName);
+        setChatName(data.username);
+        // console.log('chatName:  ',chatName);
       });
   }, []);
 
@@ -193,4 +192,3 @@ function Question() {
 }
 
 export default Question;
-

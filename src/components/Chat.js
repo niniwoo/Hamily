@@ -18,13 +18,13 @@ const [textArray, setTextArray] = useState([]);
 //     setUserName(chatName);
 // },[handleSubmit]);
 useEffect(() => { 
-    fetch("http://localhost:3000/login") 
+    fetch("http://localhost:4000/question") 
     .then((response) => { 
         if (response.ok) { return response.json(); } 
         throw new Error("Network response was not ok."); }) 
         .then((data) => { 
             console.log("data", data); 
-            setUserName(data); 
+          
         }) 
         .catch((error) => {
              console.error("There was a problem with the fetch operation:", error); 

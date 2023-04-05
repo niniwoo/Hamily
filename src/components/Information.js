@@ -8,8 +8,9 @@ export default function Information() {
 
   return (
     <>    
-    <Banner/>
+   
     <div className='container'>
+     <Banner/>
      <p>Email :</p>
      <div className='info-username'>
         <p>Username :</p>

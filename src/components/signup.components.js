@@ -23,7 +23,7 @@ export default class SignUp extends Component {
     } 
     else {
       console.log(email, username,password, password);
-      fetch("http://localhost:3000/register", {
+      fetch("http://localhost:4000/register", {
         method: "POST",
         crossDomain: true,
         headers: {
@@ -50,11 +50,8 @@ export default class SignUp extends Component {
     return (
       <div className='container'>
       <form onSubmit={this.handleSubmit} className="signup-form">
-        {/* <Link to={'/sign-in'}>Login </Link>
-        <Link to={'/sign-up'}> Sign up </Link> */}
         <h3>Sign Up</h3>
         <div >
-          {/* <label>Email address</label> */}
           <input
             type="email"
             className="form-control"
@@ -74,7 +71,6 @@ export default class SignUp extends Component {
         </div>
 
         <div>
-          {/* <label>Password</label> */}
           <input
             type="password"
             className="form-control"
@@ -84,7 +80,6 @@ export default class SignUp extends Component {
         </div>
 
         <div>
-          {/* <label>Password Confirmation</label> */}
           <input
             type="password"
             className="form-control"

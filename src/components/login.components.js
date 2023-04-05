@@ -18,12 +18,11 @@ export default class Login extends Component {
     e.preventDefault();
     const { email, password } = this.state;
     console.log(email, password);
-
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:4000/login", {
       method: "POST",
       crossDomain: true,
       headers: {
-        mode: 'no-cors',
+        // mode: 'no-cors',
         "Content-Type": "application/json",
         Accept: "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -36,10 +35,8 @@ export default class Login extends Component {
       .then((data) => {
         console.log(data, "userRegister");
         if (data.status == "ok") {
-          alert("login successful!");
           window.localStorage.setItem("token", data.data);
           window.localStorage.setItem("loggedIn", true);
-
           window.location.href = "./question"
         }
       })
@@ -50,10 +47,7 @@ export default class Login extends Component {
       <div className='container'>
        <form onSubmit={this.handleSubmit} className='login-page'>
        <img src={logo} alt="logo-hamily2" className='logo' />
-        {/* <h3>Sign In</h3> */}
-
         <div>
-          {/* <label>Email address</label> */}
           <input
             type="email"
             className="form-control"
@@ -63,7 +57,6 @@ export default class Login extends Component {
         </div>
 
         <div >
-          {/* <label>Password</label> */}
           <input
             type="password"
             className="form-control"
@@ -77,7 +70,6 @@ export default class Login extends Component {
             Submit
           </button>
         </div>
-        {/* <Link to={'/sign-in'}>Login </Link> */}
         <p>Don't have an account?  <Link to={'/sign-up'}>create new one</Link></p>  
       </form>
       </div>
