@@ -214,9 +214,18 @@ h3 {
   background-color: white;
   padding: 5px;
 }
-.answer-list, .secret-list{
+.answer-item,.answer-list, .secret-list{
 list-style: none;
 }
+
+.answer-item{
+  background-color: white;
+}
+.answer-pop{
+  background-color: blanchedalmond;
+  padding: 10px;
+}
+
 .past-answer{
   background-color: white;
   padding: 5px;

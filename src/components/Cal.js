@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Calendar from 'react-calendar';
 import style from '../Cal.css';
@@ -11,19 +12,53 @@ function Cal() {
   const [title, setTitle] = useState('');
   const [username, setUsername] = useState('');
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/question",{
+      method:"POST",
+      crossDomain:true,
+      headers:{
+        mode:'no-cors',
+        "Content-Type":"application/json",
+        Accept:"application/json",
+        "Access-Control-Allow-Origin":"*",
+      },
+      body:JSON.stringify({
+        token: window.localStorage.getItem("token"),
+      }),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log("answer userData: ", data);
+        setUsername(data?.data?.username);  
+    })
+    .catch((error) => {
+        console.log(error);
+    }); 
+  }, [username]);
 
   const handleAddEvent = () => {
     setShowForm(true);
   };
 
-  const handleUsernameChange = (event) => setUsername(event.target.value);
+  // const handleUsernameChange = (event) => setUsername(event.target.value);
 
-  const handleTitleChange = (event) => setTitle(event.target.value);
+  const handleTitleChange = (event) => {setTitle(event.target.value); console.log("event data: ", event.target.value)};
 
   const handleStartDateChange = (date) => setStartDate(date);
 
-  const handleEndDateChange = (date) => setEndDate(date);
+
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
+
+const handleEventClick = () => {
+  setShowPopup(true);
+};
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,18 +66,18 @@ function Cal() {
       // create an array of dates between the start and end date
       const dates = [];
       const currentDate = new Date(startDate);
-      while (currentDate <= endDate) {
-        dates.push(new Date(currentDate));
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
+      currentDate.setDate(currentDate.getDate() + 1);
+      dates.push(new Date(currentDate));
+
+      console.log("current date: ", currentDate);
 
       // create a new event for each date in the array
       dates.forEach((date) => {
         const newEvent = { title, date, username };
-        setEvents([...events, newEvent]);
+        setEvents((prevEvents) => [...prevEvents, newEvent]);
       });
 
-      setTitle('');
+      // setTitle('');
       setUsername('');
       setShowForm(false);
     }
@@ -52,68 +87,66 @@ function Cal() {
     const event = events.find((event) => event.date.toDateString() === date.toDateString());
     return (
       <div>
-        <p>{event && event.username}</p>
-        <p>{event && event.title}</p>
+        <ul>
+          {event && (
+            <li style={{ color: 'red' }} className="cal-item" onClick={handleEventClick}>
+              <p className="cal-item-name">{event.username}</p>
+            </li>
+          )}
+        </ul>
       </div>
     );
   };
-  function handleCloseForm() {
-    setShowForm(false);
-  }
-  
 
+  console.log("title data: ", title);
+
+  console.log("username: ", username);
   return (
-    <>
-    
-      <div className={style.Cal}>
-      <div className='container'>
-        <Banner/>
-        <div className='cal-container'>
-        <Calendar onChange={setDate} value={date} defaultValue={new Date()} tileContent={tileContent}/>
+  <>
+    <div className={style.Cal}>
+      <div className="container">
+        <Banner />
+        <div className="cal-container">
+          <Calendar onChange={setDate} value={date} defaultValue={new Date()} tileContent={tileContent} />
         </div>
         {showForm ? (
-          <form onSubmit={handleSubmit} className='form-container'>
-          <div className='form-box'>
-            <button className='close-btn' onClick={handleCloseForm}>x</button>
-            <br/>
-            <div className='cal-form-context'>
-            <label>
-              Your Name:
-              <input type="text" value={username} onChange={handleUsernameChange} />
-            </label>
-            <br />
-            <label>
-              Event Title  :
-              <input type="text" value={title} onChange={handleTitleChange} />
-            </label>
-            <br />
-            <label>
-              Start Date  :
-              <input type="date" value={startDate.toISOString().substring(0, 10)} onChange={(e) => handleStartDateChange(new Date(e.target.value))} />
-            </label>
-            <br />
-            <label>
-              End Date     :
-              <input type="date" value={endDate.toISOString().substring(0, 10)} onChange={(e) => handleEndDateChange(new Date(e.target.value))} />
-            </label>
-            <br />
-            <button type="submit" className='cal-form-btn'>Add Event</button>
+          <form onSubmit={handleSubmit} className="form-container">
+            <div className="form-box">
+              <button className="close-btn" onClick={handleCloseForm}>
+                x
+              </button>
+              <br />
+              <div className="cal-form-context">
+                <br />
+                <label>
+                  Event Title :
+                  <input type="text" value={title} onChange={(e) => handleTitleChange(e)} />
+                </label>
+                <br />
+                <label>
+                  Event Date :
+                  <input type="date" value={startDate.toISOString().substring(0, 10)} onChange={(e) => handleStartDateChange(new Date(e.target.value))} />
+                </label>
+                <br />
+                <br />
+                <button type="submit" className='cal-form-btn'>Add Event </button>
+              </div>
             </div>
-          
-          </div>
-        </form>
-        
+          </form>
         ) : (
           <button onClick={handleAddEvent} className='cal-add-btn'>Add Event</button>
         )}
-    
         <Navbar />
+        {showPopup && (
+          <div className="popup">
+            <p>{`${username}, Event Title :  ${title} on ${date.toString().slice(0, 10)}`}</p>
+          </div>
+        )}
       </div>
-   
     </div>
-    </>
-  
-  );
+  </>
+);
+
 }
 
 export default Cal;

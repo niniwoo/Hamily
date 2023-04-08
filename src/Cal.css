@@ -20,6 +20,12 @@
 abbr[title] {
  text-decoration: none;
 }
+.cal-item-name{
+    color: black;
+}
+.cal-item{
+    font-size: 12px;
+}
 .cal-container{
     margin-top: 20px;
     margin-left: 6px;
@@ -42,7 +48,7 @@ abbr[title] {
 }
 
 .react-calendar__tile--active {
- background: #6f48eb;
+ background: orange;
  border-radius: 6px;
  font-weight: bold;
  color: white;
@@ -53,8 +59,12 @@ abbr[title] {
  border-bottom-right-radius: 0;
  border-top-left-radius: 6px;
  border-bottom-left-radius: 6px;
- background: #6f48eb;
+ background: orange;
  color: white;
 } 
+.react-calendar__navigation{
+  /* align-items: center; */
+  display: flex;
+  justify-content: center;
+}
 
-  
