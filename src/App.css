@@ -11,8 +11,8 @@
 /* Styles for buttons */
 .signup-btn,
 .login-btn,
-.chat-btn,
-.answer-btn{
+.chat-btn
+{
   background-color: orange;
   color: white;
   border: none;
@@ -20,6 +20,16 @@
   width: 100px;
   margin-top: 15px;
   margin-bottom: 15px;
+}
+.answer-btn{
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    width: 80px;
+    margin-left: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 .sb-submit-btn{
   background-color: orange;
@@ -48,7 +58,13 @@
 }
 
 /* Styles for buttons with longer text */
-
+.cal-popup{
+  background-color: white;
+  padding: 5px;
+  margin-left: 5px;
+  display: flex;
+  align-self: center;
+}
 .cal-form-btn,
 .cal-add-btn {
   width: 180px;
@@ -156,7 +172,7 @@ h3 {
 
 .close-btn {
   float: right;
-  margin-right: 8px;
+  margin-right: 1px;
   background-color: white;
   border-radius: 20px;
   border: none;
@@ -206,7 +222,15 @@ h3 {
   border: none;
   border-radius: 20px;
 }
-
+.sb-answer{
+  background-color: rgb(248, 230, 198);
+}
+.sb-username{
+  background-color: white;
+  width: 120px;
+  border-radius: 30px;
+  padding: 2px;
+}
 .sb-answer-container {
   border-radius: 10px;
   margin-top: 10px;
@@ -214,8 +238,22 @@ h3 {
   background-color: white;
   padding: 5px;
 }
+
+.answer-save{
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  margin-left: 10px;
+
+
+}
 .answer-item,.answer-list, .secret-list{
 list-style: none;
+}
+
+.answer-label{
+  margin-left: 10px;
 }
 
 .answer-item{
@@ -283,10 +321,18 @@ list-style: none;
   margin-right: 10px;
 }
 .secrets{
-  background-color: white;  
+  /* background-color: white;  
   border-radius: 5%;
   padding: 1px;
-  margin: 10px;
+  margin: 10px; */
+  margin-top: 20px;
+}
+.popup{
+  background-color: white;
+  margin: 20px;
+  width: 150px;
+  height: 120px;
+  padding: 20px;
 }
 .sb-form{
   
@@ -305,7 +351,9 @@ list-style: none;
   margin-top: 30px;
   margin-right: 20px;
 }
-
+.box-icon{
+  width: 80px;
+}
 .info-username{
   display:inline-flex;
 }

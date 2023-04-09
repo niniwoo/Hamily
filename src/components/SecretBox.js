@@ -1,6 +1,8 @@
 import React, { useState ,useEffect} from "react";
 import Navbar from "./Navbar";
 import Banner from "./Banner.js";
+import icon from '../css/img/box.png';
+
 
 const SecretBox = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -10,6 +12,8 @@ const SecretBox = () => {
   const [sentences,setSentences] =  useState("");
   const [responses, setResponses] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
 
   useEffect(() => {
     fetch("http://localhost:4000/secret")
@@ -159,16 +163,36 @@ const SecretBox = () => {
       <ul>
         {secrets.map((secret) => (
           <li key={secret._id} className="secret-list">
+
             <div className="secrets">
-            <button className='close-btn' onClick={() => handleDeleteSecret(secret._id)}>x</button>
-              <p>Username: {secret.username}</p>
-              <p>Sentences: {secret.sentences}</p>
+              {/* <button className='close-btn' onClick={() => handleDeleteSecret(secret._id)}>x</button> */}
+              <div className='box-icon-container' onClick={() => setShowPopup(true)}>
+                <img src={icon} alt='box-icon' className='box-icon'></img>
             </div>
+          <p className="sb-username">{secret.username}</p> 
+</div>
+
           </li>
         ))}
       </ul>
+
       </div>
-    
+      {showPopup && (
+    <div className="popup">
+         <button onClick={() => setShowPopup(false)} className="close-btn">x</button>
+              {secrets.map((secret) => (
+          <li key={secret._id} className="secret-list">
+            <div className="sb-answer">
+              <p>Username : {secret.username}</p> 
+               <p>Contents :{secret.sentences}</p>
+            </div>
+
+          </li>
+        ))}
+      
+    </div>
+)}
+
       <Navbar />
     </div>
     </>

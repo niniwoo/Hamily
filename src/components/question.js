@@ -177,8 +177,7 @@ function Question() {
       <div className='question'>
             <b>{question}</b>
       </div>
-
-    
+      
       </div>      
       <div className='question-btns'>
         <button onClick={goToAnswer} className='question-write-btn'>Write The answer</button>

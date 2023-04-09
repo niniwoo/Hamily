@@ -94,14 +94,15 @@ function Answer() {
       </div>     
       {answer === "" && ( // conditionally render the form
         <form onSubmit={handleSubmit}>
-          <label>
+          <label className='answer-label'>
             Your answer:
             <input type="text" value={inputValue} onChange={handleInputChange}></input>
+               <button type="submit" className='answer-btn'>POST</button>
           </label>
-          <button type="submit" className='answer-btn'>POST</button>
+       
         </form>
       )}
-      {answer !== "" && <p>{answer}</p>} {/* render answer below the form */}
+      {answer !== "" && <p className='answer-save'>Your answer is successfully saved! </p>} 
       <Navbar />
     </div>
   );

@@ -45,7 +45,6 @@ useEffect(() => {
 //          }, []);
 
 
-
 useEffect(()=>{
     socket.on("chat message", (msg) => {
         setTextArray([...textArray,msg]);
@@ -86,11 +85,6 @@ onChange={(e) => setInputValue(e.target.value)}
 
 </form>
 <div className="msg-container">
-     {/* <p className="message">
-    {textArray.map((element, index) => {
-      return <li key={index} className="chat-element">{element}</li>;
-    })}
-</p> */}
 <p className="message">
   {textArray.map((element, index) => {
     // Add a CSS class based on whether the message is from the current user or not

@@ -138,7 +138,7 @@ const handleEventClick = () => {
         )}
         <Navbar />
         {showPopup && (
-          <div className="popup">
+          <div className="cal-popup">
             <p>{`${username}, Event Title :  ${title} on ${date.toString().slice(0, 10)}`}</p>
           </div>
         )}
