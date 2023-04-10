@@ -25,6 +25,7 @@ abbr[title] {
 }
 .cal-item{
     font-size: 12px;
+    list-style: none;
 }
 .cal-container{
     margin-top: 20px;

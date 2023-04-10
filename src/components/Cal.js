@@ -30,7 +30,6 @@ function Cal() {
     })
     .then((res) => res.json())
     .then((data) => {
-        console.log("answer userData: ", data);
         setUsername(data?.data?.username);  
     })
     .catch((error) => {
@@ -44,24 +43,85 @@ function Cal() {
 
   // const handleUsernameChange = (event) => setUsername(event.target.value);
 
-  const handleTitleChange = (event) => {setTitle(event.target.value); console.log("event data: ", event.target.value)};
-
+  const handleTitleChange = (event) => {setTitle(event.target.value); 
+  console.log("event data: ", event.target.value)};
   const handleStartDateChange = (date) => setStartDate(date);
-
-
 
   const handleCloseForm = () => {
     setShowForm(false);
   };
 
-const handleEventClick = () => {
-  setShowPopup(true);
-};
+  const handleEventClick = () => {
+    setShowPopup(true);
+  };
 
 
+// useEffect(() => {
+//   fetch("http://localhost:4000/calendars")
+//     .then((res) => res.json())
+//     .then((data) => {{
+//         setEvents(data.data);
+//         setDate(data.data);
+//       }
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }, []);
 
+useEffect(() => {
+    fetch("http://localhost:4000/question",{
+      method:"POST",
+      crossDomain:true,
+      headers:{
+        mode:'no-cors',
+        "Content-Type":"application/json",
+        Accept:"application/json",
+        "Access-Control-Allow-Origin":"*",
+      },
+      body:JSON.stringify({
+        token: window.localStorage.getItem("token"),
+      }),
+  }).then((res) => res.json())
+    .then((data) => {
+        // console.log("calendar userData: ", data);
+        setUsername(data?.data?.username);
+    })
+    .catch((error) => {
+        console.log(error);
+    }); 
+  }, [username])
+  //getting data from /calendars
+  
+  
   const handleSubmit = (event) => {
     event.preventDefault();
+     fetch("http://localhost:4000/calendars", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      }, 
+      body: JSON.stringify({
+        username: username,
+        etitle:title,
+        edate:startDate,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data from the answer component", data);
+        if (data.status === "ok") {
+          console.log("Saved your answer!");
+           // set answer state to show the answer below the form
+        } else {
+          console.log("Failed to save your answer.");
+        }
+      })
+      .catch((error) => {
+        console.log("Error occurred while saving your answer.", error);
+      });
+
+
     if (title) {
       // create an array of dates between the start and end date
       const dates = [];
@@ -77,7 +137,6 @@ const handleEventClick = () => {
         setEvents((prevEvents) => [...prevEvents, newEvent]);
       });
 
-      // setTitle('');
       setUsername('');
       setShowForm(false);
     }
@@ -140,13 +199,13 @@ const handleEventClick = () => {
         {showPopup && (
           <div className="cal-popup">
             <p>{`${username}, Event Title :  ${title} on ${date.toString().slice(0, 10)}`}</p>
+                        {/* <p>{`${username}, Event Title :  ${events} on ${date.toString().slice(0, 10)}`}</p> */}
+
           </div>
         )}
       </div>
     </div>
   </>
 );
-
-}
-
+        }
 export default Cal;

@@ -103,6 +103,7 @@ app.post("/secret", async (req, res) => {
 });
 
 app.get("/secret", async (req, res) => {
+    console.log("req data: ", req);
     try {
       const secrets = await Secret.find({});
       res.json({ status: "ok", data: secrets });
@@ -122,6 +123,46 @@ try {
     res.status(500).json({ message: "Error occurred while deleting secret." });
 }
 });
+
+//calendar
+const Calendar = new mongoose.Schema(
+    {
+        username:String,
+        etitle:String,
+        edate:String,
+
+    },{
+        collection:"Calendar",
+    }
+);
+const Calendars = mongoose.model("Calendar",Calendar);
+
+app.post("/calendars", async (req, res) => {
+  const { username, etitle, edate } = req.body;
+  try {
+    await Calendars.create({
+      username,
+      etitle,
+      edate,
+    });
+    res.send({ status: "ok" });
+  } catch (error) {
+    console.error(error);
+    res.send({ status: "error :(" });
+  }
+});
+app.get("/calendars", async (req, res) => {
+    console.log("req data: ", req);
+    try {
+      const cal = await Calendars.find({});
+      res.json({ status: "ok", data: cal });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+// calender end
   
 
 
@@ -198,16 +239,6 @@ app.post("/question", async (req, res) => {
     } catch (error) { }
 })
 
-// app.get("/getData",async(req,res)=>{
-//     console.log(res);
-//     try{
-//         const allUser = await Users.findOne({username:"niniwoo"});
-//         res.send({ status: "ok",data:allUser});
-
-//     }catch(error){
-//         console.log(error);
-//     }
-// })
 
 app.post("/userData", async(req, res) => {
     const { token } = req.body;

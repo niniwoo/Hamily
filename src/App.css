@@ -1,3 +1,4 @@
+
 .container {
   width: 390px;
   height: 800px;
@@ -6,6 +7,7 @@
   background-color: #F4EBE4;
   /* display: flex; */
   position: relative; 
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 /* Styles for buttons */
@@ -26,11 +28,14 @@
     color: white;
     border: none;
     border-radius: 20px;
-    width: 80px;
-    margin-left: 5px;
+    width: 120px;
+    margin-left: 100px;
     margin-top: 15px;
     margin-bottom: 15px;
+    padding: 4px;
 }
+
+
 .sb-submit-btn{
   background-color: orange;
   color: white;
@@ -49,11 +54,9 @@
   border: none;
   border-radius: 20px;
   width: 150px;
-  /* margin-top: 15px;
-  margin-bottom: 15px; */
   padding: 10px;
   position: absolute;
-  top: 50%;
+  bottom: 90px;
   left: 33%;
 }
 
@@ -222,14 +225,35 @@ h3 {
   border: none;
   border-radius: 20px;
 }
+.secret-container{
+  margin-top: 30px;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.sb-nodata{
+  display: flex;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 150px;
+  justify-content: center;
+
+}
+.sb-nodata-item{
+  justify-content: center;
+}
 .sb-answer{
   background-color: rgb(248, 230, 198);
 }
 .sb-username{
   background-color: white;
-  width: 120px;
+  /* width: 100px; */
   border-radius: 30px;
   padding: 2px;
+  text-align: center;
+  margin-top: 5px;
 }
 .sb-answer-container {
   border-radius: 10px;
@@ -253,7 +277,7 @@ list-style: none;
 }
 
 .answer-label{
-  margin-left: 10px;
+  margin-left: 40px;
 }
 
 .answer-item{
@@ -262,13 +286,16 @@ list-style: none;
 .answer-pop{
   background-color: blanchedalmond;
   padding: 10px;
+  border: solid;
 }
 
 .past-answer{
   background-color: white;
-  padding: 5px;
+  padding: 3px;
   margin: 3px;
+  border-radius: 10px;
 }
+
 .letter-icon {
   margin-top: 40px;
   width: 150px;
@@ -320,13 +347,16 @@ list-style: none;
   width:250px;
   margin-right: 10px;
 }
-.secrets{
-  /* background-color: white;  
-  border-radius: 5%;
-  padding: 1px;
-  margin: 10px; */
-  margin-top: 20px;
+.secret-list{
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 15px;
+  /* margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  margin-left: 10px; */
 }
+
 .popup{
   background-color: white;
   margin: 20px;
@@ -353,6 +383,9 @@ list-style: none;
 }
 .box-icon{
   width: 80px;
+}
+.emptybox-icon{
+  width:120px;
 }
 .info-username{
   display:inline-flex;

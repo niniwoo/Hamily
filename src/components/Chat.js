@@ -14,20 +14,31 @@ const [userName, setUserName] = useState("");
 const [textArray, setTextArray] = useState([]);
 const [currentUserName, setCurrentUserName] = useState("");
 
-useEffect(() => { 
-    fetch("http://localhost:4000/question") 
-    .then((response) => { 
-        if (response.ok) { return response.json(); } 
-        throw new Error("Network response was not ok."); }) 
-        .then((data) => { 
-            console.log("data", data); 
-            setUserName(data.data.userName);
-            setCurrentUserName(data.data.userName); // Set the current user name here
-        }) 
-        .catch((error) => {
-             console.error("There was a problem with the fetch operation:", error); 
-            });
-}, []);
+// useEffect(() => { 
+//     fetch("http://localhost:4000/question") 
+//     .then((response) => { 
+//         if (response.ok) { return response.json(); } 
+//         throw new Error("Network response was not ok."); }) 
+//         .then((data) => { 
+//             console.log("data", data); 
+//             setUserName(data.data);
+//             setCurrentUserName(data.data.userName); // Set the current user name here
+//         }) 
+//         .catch((error) => {
+//              console.error("There was a problem with the fetch operation:", error); 
+//             });
+// }, []);
+  useEffect(() => {
+    fetch("http://localhost:4000/question")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("answer userData: ", data);
+        setUserName(data.data.userName);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userName]);
 
 // useEffect(() => { 
 //     fetch("http://localhost:4000/question") 

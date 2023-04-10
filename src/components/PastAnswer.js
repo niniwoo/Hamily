@@ -62,7 +62,7 @@ export default function PastAnswer() {
          </ul>
         <Navbar />
        {showAnswer && (
-  <div className="popup">
+  <div className="answer-popup">
     <div className="popup-content">
       <button onClick={() => setShowAnswer(false)} className='close-btn'>x</button>
 

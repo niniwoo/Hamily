@@ -2,6 +2,9 @@ import React, { useState ,useEffect} from "react";
 import Navbar from "./Navbar";
 import Banner from "./Banner.js";
 import icon from '../css/img/box.png';
+import icon2 from '../css/img/emptybox.png';
+
+
 
 
 const SecretBox = () => {
@@ -13,19 +16,23 @@ const SecretBox = () => {
   const [responses, setResponses] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [hasData, setHasData] = useState(false);
 
-
-  useEffect(() => {
-    fetch("http://localhost:4000/secret")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("secret userData: ", data);
+useEffect(() => {
+  fetch("http://localhost:4000/secret")
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.data.length === 0) {
+        setHasData(false);
+      } else {
         setSecrets(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+        setHasData(true);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}, []);
   
   useEffect(() => {
     if (isChecked) {
@@ -57,11 +64,13 @@ const SecretBox = () => {
   }, [isChecked])
 
   
-  const handleCheckboxChange = () => {
+  const handleCheckboxChange = (e) => {
+    e.preventDefault();
     setIsChecked(!isChecked);
   };
 
   const handleSubmit = (e) => {
+    window.location.reload(false);
     e.preventDefault();
     setSentences(context);
 
@@ -86,7 +95,7 @@ const SecretBox = () => {
         }
       })
       .catch((error) => {
-        alert("Error occurred while saving your answer.", error);
+        console.log("Error occurred while saving your answer.", error);
       });
 
     // Add the user's response to the array
@@ -117,17 +126,19 @@ const SecretBox = () => {
       });
   };
   
-  const handleShowForm = () => {
+  const handleShowForm = (event) => {
+    event.preventDefault();
     setShowForm(true);
   };
-  function handleCloseForm() {
+  function handleCloseForm(event) {
+    event.preventDefault();
     setShowForm(false);
   }
   return (
     <>
      <div className="container">
      <Banner/>
-      <div className="secretbox-container">
+
       {showForm ? (
         <form onSubmit={handleSubmit} className="sb-form">
           {!isChecked && (
@@ -154,47 +165,51 @@ const SecretBox = () => {
             onChange={(e) => setContext(e.target.value)}
           />
           <br/>
-          <button type="submit" className="sb-submit-btn">Submit</button>
+          <button type="submit" className="sb-submit-btn" >Submit</button>
         </form>
       ) : (
         <button onClick={handleShowForm} className="sb-add-btn"> Spill the tea! </button>
       )}
+<div className="secret-container">
 
-      <ul>
-        {secrets.map((secret) => (
-          <li key={secret._id} className="secret-list">
-
-            <div className="secrets">
-              {/* <button className='close-btn' onClick={() => handleDeleteSecret(secret._id)}>x</button> */}
-              <div className='box-icon-container' onClick={() => setShowPopup(true)}>
-                <img src={icon} alt='box-icon' className='box-icon'></img>
-            </div>
-          <p className="sb-username">{secret.username}</p> 
+    {hasData ? (
+        secrets.map((secret) => (
+          <div key={secret._id} className="secret-list">     
+              <div onClick={() => setShowPopup(true)}>
+                  <img src={icon} alt='box-icon' className='box-icon'></img>
+                  <p className="sb-username">{secret.username}</p>   
+              </div>
+          </div>
+        ))
+            ) : (
+                   <div className="sb-nodata">
+                    <div className="sb-nodata-item">
+                      <img src={icon2} alt='box-icon' className='emptybox-icon'></img> <br/>                     
+                      <b>Secret Box hasn't created yet! </b>
+                    </div>
+                   </div>
+             )}
 </div>
+    
 
-          </li>
-        ))}
-      </ul>
-
-      </div>
+      
       {showPopup && (
-    <div className="popup">
+        <div className="popup">
          <button onClick={() => setShowPopup(false)} className="close-btn">x</button>
               {secrets.map((secret) => (
           <li key={secret._id} className="secret-list">
             <div className="sb-answer">
-              <p>Username : {secret.username}</p> 
+              <p>Username: {secret.username}</p> 
                <p>Contents :{secret.sentences}</p>
             </div>
-
           </li>
         ))}
-      
-    </div>
-)}
+        </div>
 
+      )} 
       <Navbar />
-    </div>
+      </div>
+     
     </>
    
   );
