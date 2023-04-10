@@ -32,8 +32,8 @@ function Answer() {
       }),
   }).then((res) => res.json())
     .then((data) => {
-        console.log("answer userData: ", data);
-        setUserName(data?.data?.username);
+        // console.log("answer userData: ", data);s
+        setUserName(data?.username);
     })
     .catch((error) => {
         console.log(error);

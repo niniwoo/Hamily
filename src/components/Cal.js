@@ -85,7 +85,7 @@ useEffect(() => {
   }).then((res) => res.json())
     .then((data) => {
         // console.log("calendar userData: ", data);
-        setUsername(data?.data?.username);
+        setUsername(data?.username);
     })
     .catch((error) => {
         console.log(error);
@@ -158,7 +158,6 @@ useEffect(() => {
   };
 
   console.log("title data: ", title);
-
   console.log("username: ", username);
   return (
   <>

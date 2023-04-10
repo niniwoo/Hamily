@@ -231,7 +231,8 @@ app.post("/question", async (req, res) => {
         const useremail = user.email;
         Users.findOne({ email: useremail })
             .then((data) => {
-                res.send({ status: "okay", data: data });
+                // res.send({ status: "okay", data: data });
+                res.send(JSON.stringify(data));
             })
             .catch((error) => {
                 res.send({ status: "error", data: error })

@@ -25,8 +25,8 @@ constructor(props){
       }),
     }).then((res) => res.json())
       .then((data) => {
-       
-        this.setState({ userData: data.data});
+        // console.log("fetch data from banner: ", data)
+        this.setState({ userData: data});
       })
     
    

@@ -63,22 +63,22 @@ export default function PastAnswer() {
         <Navbar />
        {showAnswer && (
   <div className="answer-popup">
-    <div className="popup-content">
+ 
       <button onClick={() => setShowAnswer(false)} className='close-btn'>x</button>
 
-      <ul>
+   
         {groupedAnswers[selectedAnswer].map((answer, index) => (
-          <li key={answer._id} className="answer-item">
-            {index === 0 && <p>{answer.question}</p>}
+          <div className="answer-item">
+             <li key={answer._id}>
+            {index === 0 && <b className="answer-question">{answer.question}</b>}
             <div className="answer-pop">
             <p>Username: {answer.username}</p>
             <p>Answer: {answer.answer}</p>
             </div>
-           
           </li>
+          </div>
         ))}
-      </ul>
-    </div>
+
   </div>
 )}
 

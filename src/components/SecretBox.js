@@ -56,7 +56,7 @@ useEffect(() => {
     .then((res) => res.json())
     .then((data) => {
         console.log("answer userData: ", data);
-        setUser(data?.data?.username);  
+        setUser(data?.username);  
     })
     .catch((error) => {
         console.log(error);
@@ -88,10 +88,10 @@ useEffect(() => {
       .then((data) => {
         console.log("data from the answer component", data);
         if (data.status === "ok") {
-          alert("Saved your answer!");
+          console.log("Saved your answer!");
            // set answer state to show the answer below the form
         } else {
-          alert("Failed to save your answer.");
+          console.log("Failed to save your answer.");
         }
       })
       .catch((error) => {
@@ -189,24 +189,25 @@ useEffect(() => {
                     </div>
                    </div>
              )}
+                   {showPopup && (
+        <div className="popup">
+          <button onClick={() => setShowPopup(false)} className="close-btn">x</button>
+                {secrets.map((secret) => (
+            <li key={secret._id} className="secret-list">
+              <div className="sb-answer">
+                <p>Username: {secret.username}</p> 
+                <p>Contents :{secret.sentences}</p>
+              </div>
+            </li>
+              ))}
+        </div>
+
+      )} 
 </div>
     
 
       
-      {showPopup && (
-        <div className="popup">
-         <button onClick={() => setShowPopup(false)} className="close-btn">x</button>
-              {secrets.map((secret) => (
-          <li key={secret._id} className="secret-list">
-            <div className="sb-answer">
-              <p>Username: {secret.username}</p> 
-               <p>Contents :{secret.sentences}</p>
-            </div>
-          </li>
-        ))}
-        </div>
 
-      )} 
       <Navbar />
       </div>
      

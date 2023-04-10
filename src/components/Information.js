@@ -24,10 +24,8 @@ export default function Information() {
       }),
     }).then((res) => res.json())
       .then((data) => {
-       setEmail(data.data.email);
-       setUsername(data.data.username);
-      //  console.log("data!!!!!!!!:",data);
-        // this.setState({ userData: data.data});
+       setEmail(data.email);
+       setUsername(data.username);
         
       })
   },[])
@@ -43,7 +41,6 @@ export default function Information() {
 
      </div>
  
-     <p>Family Members :</p>
       <Navbar />
     </div>
     </>
