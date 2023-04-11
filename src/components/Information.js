@@ -2,6 +2,7 @@
 import React, { useEffect,useState } from 'react'
 import Navbar from './Navbar'
 import Banner from './Banner.js';
+import logo from '../css/img/hamily-logo3.png';
 
 
 export default function Information() {
@@ -35,11 +36,16 @@ export default function Information() {
    
     <div className='container'>
      <Banner/>
-     <p>Email :{email}</p>
-     <div className='info-username'>
-        <p>Username : {username}</p><br/>
+  
+      <img src={logo} alt="logo-hamily2" className='logo3' />
+      <div className='info-container'>
+      <h2 className='ur-info'>Your Information</h2>
+        <b>Email : {email}</b>  <br/> 
+        <b>Username :   {username}</b><br/>
+      </div>
 
-     </div>
+  
+      
  
       <Navbar />
     </div>

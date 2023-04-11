@@ -4,19 +4,18 @@ import Banner from "./Banner.js";
 import icon from '../css/img/box.png';
 import icon2 from '../css/img/emptybox.png';
 
-
-
-
 const SecretBox = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const [isChecked, setIsChecked] = useState(false);
   const [context, setContext] = useState("");
   const [secrets, setSecrets] = useState([]);
   const [user, setUser] = useState("");
   const [sentences,setSentences] =  useState("");
   const [responses, setResponses] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  // const [showPopup, setShowPopup] = useState(false);
   const [hasData, setHasData] = useState(false);
+  const [selectedSecret, setSelectedSecret] = useState(null); // add state variable to track selected secret
+
 
 useEffect(() => {
   fetch("http://localhost:4000/secret")
@@ -33,6 +32,10 @@ useEffect(() => {
       console.log(error);
     });
 }, []);
+
+  const handleSecretClick = (secret) => {
+    setSelectedSecret(secret);
+  };
   
   useEffect(() => {
     if (isChecked) {
@@ -118,8 +121,10 @@ useEffect(() => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+       
         // Update the state to remove the deleted secret
         setSecrets(secrets.filter((secret) => secret._id !== id));
+         console.log("deleted successully!");
       })
       .catch((error) => {
         console.log(error);
@@ -130,6 +135,7 @@ useEffect(() => {
     event.preventDefault();
     setShowForm(true);
   };
+
   function handleCloseForm(event) {
     event.preventDefault();
     setShowForm(false);
@@ -170,18 +176,23 @@ useEffect(() => {
       ) : (
         <button onClick={handleShowForm} className="sb-add-btn"> Spill the tea! </button>
       )}
-<div className="secret-container">
-
-    {hasData ? (
-        secrets.map((secret) => (
-          <div key={secret._id} className="secret-list">     
-              <div onClick={() => setShowPopup(true)}>
-                  <img src={icon} alt='box-icon' className='box-icon'></img>
-                  <p className="sb-username">{secret.username}</p>   
+      <div className="secret-container">
+          {hasData ? (
+            secrets.map((secret) => (
+              <div
+                key={secret._id}
+                className={`secret-list ${
+                  selectedSecret && selectedSecret._id === secret._id ? "selected" : "" // highlight selected secret
+                }`}
+                onClick={() => handleSecretClick(secret)} // handle click
+              >
+                <div>
+                  <img src={icon} alt="box-icon" className="box-icon"></img>
+                  <p className="sb-username">{secret.username}</p>
+                </div>
               </div>
-          </div>
-        ))
-            ) : (
+            ))
+          ) : (
                    <div className="sb-nodata">
                     <div className="sb-nodata-item">
                       <img src={icon2} alt='box-icon' className='emptybox-icon'></img> <br/>                     
@@ -189,28 +200,23 @@ useEffect(() => {
                     </div>
                    </div>
              )}
-                   {showPopup && (
-        <div className="popup">
-          <button onClick={() => setShowPopup(false)} className="close-btn">x</button>
-                {secrets.map((secret) => (
-            <li key={secret._id} className="secret-list">
-              <div className="sb-answer">
-                <p>Username: {secret.username}</p> 
-                <p>Contents :{secret.sentences}</p>
-              </div>
-            </li>
-              ))}
+
+        {selectedSecret && (
+          // show selected secret details
+     <div className="popup">
+            <div className="sb-answer">
+             <button onClick={() => setSelectedSecret(false)} className="close-btn">x</button>
+            <b> Username: {selectedSecret.username}</b>
+            <b> Content: {selectedSecret.sentences}</b>
+            <br/>
+             <button className="sb-delete" onClick={() => handleDeleteSecret(selectedSecret._id)}>delete</button>
+          </div>
+     </div>
+
+        )}
         </div>
-
-      )} 
-</div>
-    
-
-      
-
       <Navbar />
-      </div>
-     
+      </div> 
     </>
    
   );

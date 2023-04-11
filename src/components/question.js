@@ -33,13 +33,13 @@ function Question() {
   }, []);
 
   const questions = [
-    "What kind of learner are you?",
+    "What is your favorite music genre?",
     "Are you a cat or a dog?",
-    "What are you looking for?",
-    "What food would you be?",
+    "What kind of food do you hate the most?",
+    "When COVID is over, where would you want to travel?",
     "What do you think you’ll be doing five years from now?",
     "Who is the most interesting person you’ve ever met?",
-    "What is the best thing about being an adult?",
+    "What is the best movie you've ever watched",
     "What is the best thing about your job?",
     "What is the difference between a good idea and a great idea?",
     "What is the number one thing you wish you could change about how people see you?",

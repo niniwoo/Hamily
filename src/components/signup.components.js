@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import logo from '../css/img/hamily-logo3.png';
+   
 export default class SignUp extends Component {
   constructor(props) {
     super(props)
@@ -50,53 +52,57 @@ export default class SignUp extends Component {
     return (
       <div className='container'>
       <form onSubmit={this.handleSubmit} className="signup-form">
-        <h3>Sign Up</h3>
-        <div >
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter email"
-            onChange={(e) => this.setState({ email: e.target.value })}
-          />
-        </div>
+      <div className='signup-container'>
+    <h3 className='signup-text'>Welcome to HAMILY !</h3>
+          <div >
+            <img src={logo} alt="logo-hamily2" className='logo4' />
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter email"
+              onChange={(e) => this.setState({ email: e.target.value })}
+            />
+          </div>
 
-        <div>
-          {/* <label>Username Confirmation</label> */}
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter username"
-            onChange={(e) => this.setState({ username: e.target.value })}
-          />
-        </div>
+          <div>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter username"
+              onChange={(e) => this.setState({ username: e.target.value })}
+            />
+          </div>
 
-        <div>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Enter password"
-            onChange={(e) => this.setState({ password: e.target.value })}
-          />
-        </div>
+          <div>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              onChange={(e) => this.setState({ password: e.target.value })}
+            />
+          </div>
 
-        <div>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Enter password to confirm"
-            onChange={(e) => this.setState({ password2: e.target.value })}
-          />
-        </div>
+          <div>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password to confirm"
+              onChange={(e) => this.setState({ password2: e.target.value })}
+            />
+          </div>
 
 
-        <div>
-          <button type="submit" className='signup-btn'>
-            Sign Up
-          </button>
+          <div>
+            <button type="submit" className='signup-btn'>
+              Sign Up
+            </button>
+          </div>
+    <b className='signup-p'>
+    Already registered <a href="/sign-in">sign in?</a>
+    </b>
+
         </div>
-        <p>
-          Already registered <a href="/sign-in">sign in?</a>
-        </p>
+      
       </form>
       </div>
 

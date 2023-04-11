@@ -1,4 +1,4 @@
-.react-calendar { 
+ .react-calendar { 
  width: 100%;
  max-width: 100%;
  background-color: #fff;
@@ -24,7 +24,7 @@ abbr[title] {
     color: black;
 }
 .cal-item{
-    font-size: 12px;
+    font-size: 11px;
     list-style: none;
 }
 .cal-container{
@@ -68,4 +68,3 @@ abbr[title] {
   display: flex;
   justify-content: center;
 }
-
